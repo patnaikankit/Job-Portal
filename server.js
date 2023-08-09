@@ -8,6 +8,7 @@ import connectDB from "./config/db.js";
 import testRoutes from "./routes/testRoutes.js"
 import authRoute from "./routes/authRoute.js"
 import errorMiddleware from "./middlewares/errorMiddleware.js";
+import userRoute from "./routes/userRoute.js"
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(morgan("dev"));
 // endpoints
 app.use('/api/v1/test', testRoutes);
 app.use('/api/v1/auth', authRoute);
+app.use('/api/v1/user', userRoute);
 
 
 app.use(errorMiddleware);
