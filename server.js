@@ -9,6 +9,7 @@ import testRoutes from "./routes/testRoutes.js"
 import authRoute from "./routes/authRoute.js"
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import userRoute from "./routes/userRoute.js"
+import jobRoute from "./routes/jobRoute.js"
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use(morgan("dev"));
 app.use('/api/v1/test', testRoutes);
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/user', userRoute);
+app.use('/api/v1/jobs', jobRoute);
 
 
 app.use(errorMiddleware);

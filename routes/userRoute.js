@@ -6,7 +6,7 @@ const router = express.Router();
 
 // routes
 
-// update info 
+// update user info 
 router.put("/update-info", userAuth, userController);
 
 export default router;

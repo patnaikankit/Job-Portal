@@ -1,3 +1,5 @@
+// Custom error middleware - used everywhere in the code
+// will be passed in the next parameter in a function
 const errorMiddleware = (err, req, res, next) => {
     console.log(err);
 
