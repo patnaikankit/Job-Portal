@@ -17,9 +17,66 @@ export const jobController = async (req, res, next) => {
 
 // logic to create get all the job listings
 export const getJobsController = async (req, res, next) => {
-    const jobs = await jobModel.find({createdBy: req.user.userId});
-    const totalJobs = jobs.length
+    // filters added
+    const { status, workType, position, sort } = req.query
+    // condition to filter data
+    const queryObject = {
+        createdBy: req.user.userId
+    }
+
+    // logic filters on the basis of application status
+    if(status && status !== 'all'){
+        queryObject.status = status
+    }
+
+    // logic filters on the basis of mode of employibility
+    if(workType && workType !== 'all'){
+        queryObject.workType = workType
+    }
+
+    // logic filters on the basis of position
+    if(position){
+        // the user is not expected to write the full position name so we will show them every matching string with any job with the same keywords
+        queryObject.position = {$regex: position, $options: 'i'}
+    }
+
+    let queryResult = jobModel.find(queryObject);
+
+    // sorting data
+    // will be done according to the date the job was posted
+    // will be sorted in latest to oldest
+    if(sort === 'latest'){
+        queryResult =  queryResult.sort('-createdAt')
+    }
+
+    // will be sorted in oldest to latest
+    if(sort === 'oldest'){
+        queryResult = queryResult.sort('createdAt')
+    }
+
+    // will be sorted alphabetically
+    if(sort === 'a-z'){
+        queryResult = queryResult.sort('position')
+    }
+
+
+    // Pagination
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 20
+    // to make sure we are not showing the first 20 jobs in the next page
+    const skip = (page - 1)*limit
+
+    queryResult = queryResult.skip(skip).limit(limit);
+
+    const totalJobs = await jobModel.countDocuments(queryResult)
+    const numPages = Math.ceil(totalJobs/limit)
+
+    const jobs = await queryResult;
+
+    // to get all jobs - no filters added
+    // const jobs = await jobModel.find({createdBy: req.user.userId});
     res.status(200).json({
+        numPages,
         totalJobs,
         jobs
     })
