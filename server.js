@@ -1,3 +1,5 @@
+import swaggerUi from "swagger-ui-express";
+import swaggerDoc from "swagger-jsdoc";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -21,6 +23,26 @@ dotenv.config();
 
 connectDB();
 
+// swagger api config
+const options = {
+    definition: {
+        openapi: "3.0.3",
+    info: {
+        title: "Job Portal",
+        description: "Job Portal using Nodejs and Express"
+    },
+    servers: [
+        {
+            url: "http://localhost:3000/"
+        }
+    ]
+    },
+    apis: ["./routes/*.js"],
+
+}
+
+const spec = swaggerDoc(options);
+
 const app = express();
 
 // middlewares
@@ -38,6 +60,7 @@ app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/jobs', jobRoute);
 
+app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(spec));
 
 app.use(errorMiddleware);
 
