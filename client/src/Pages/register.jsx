@@ -1,26 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Form from "../components/form.jsx";
+import { Dispatch } from "react-redux";
 
 export default function Register() {
-  const [data, setData] = useState({
-    fName: "",
-    email: "",
-    lName: "",
-    password: "",
-  });
+  const [fName, setFName] = useState("");
+  const [lName, setLName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleChange = (event) => {
-    const { content, value } = event.target;
-    setData((prevData) => ({
-      ...prevData,
-      [content]: value,
-    }));
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
-      console.log(data);
+      console.log(fName, lName, email, password);
     } catch (error) {
       console.log(error);
     }
@@ -31,59 +24,41 @@ export default function Register() {
       <form className="card p-2" onSubmit={handleSubmit}>
         <img src="/public/logo.png" alt="logo" height={200} width={400} />
 
-        <div className="mb-1">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            value={data.email}
-            onChange={handleChange}
-            name="email"
-          />
-        </div>
+        <Form
+          htmlFor="email"
+          labelText={"Email Address"}
+          type={"email"}
+          value={email}
+          handleChange={(e) => setEmail(e.target.value)}
+          name="email"
+        />
 
-        <div className="mb-1">
-          <label htmlFor="fName" className="form-label">
-            First Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="fName"
-            value={data.fName}
-            onChange={handleChange}
-          />
-        </div>
+        <Form
+          htmlFor="fName"
+          labelText={"First Name"}
+          type={"text"}
+          value={fName}
+          handleChange={(e) => setFName(e.target.value)}
+          name="fName"
+        />
 
-        <div className="mb-1">
-          <label htmlFor="lName" className="form-label">
-            Last Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="lName"
-            value={data.lName}
-            onChange={handleChange}
-          />
-        </div>
+        <Form
+          htmlFor="lName"
+          labelText={"Last Name"}
+          type={"text"}
+          value={lName}
+          handleChange={(e) => setLName(e.target.value)}
+          name="lName"
+        />
 
-        <div className="mb-1">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            value={data.password}
-            onChange={handleChange}
-            name="password"
-          />
-        </div>
+        <Form
+          htmlFor="password"
+          labelText={"Password"}
+          type={"password"}
+          value={password}
+          handleChange={(e) => setPassword(e.target.value)}
+          name="password"
+        />
 
         <div className="d-flex justify-content-between">
           <p>
