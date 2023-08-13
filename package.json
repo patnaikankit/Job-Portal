@@ -22,6 +22,7 @@
     "moment": "^2.29.4",
     "mongoose": "^7.4.2",
     "morgan": "^1.10.0",
+    "react-router-dom": "^6.15.0",
     "swagger-doc": "^0.3.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",

@@ -33,8 +33,8 @@ const options = {
     },
     servers: [
         {
-            // url: "http://localhost:3000/"
-            url: "https://job-portal-6jfl.onrender.com"
+            url: "http://localhost:3000/"
+            // url: "https://job-portal-6jfl.onrender.com"
         }
     ]
     },
@@ -51,7 +51,10 @@ app.use(helmet())
 app.use(xss())
 app.use(mongoSanitize())
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    methods: "GET,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+}));
 app.use(morgan("dev"));
 
 
