@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Form from "../components/form.jsx";
-import { Dispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { hideLoading, showLoading } from "../redux/features/alertSlice.js"
+import axios from "axios"
 
 export default function Register() {
   const [fName, setFName] = useState("");
@@ -10,14 +12,42 @@ export default function Register() {
   const [password, setPassword] = useState("");
 
 
-  const handleSubmit = (event) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(fName, lName, email, password);
+      // Validating that the user has filled all the fields
+      if (fName && lName && email && password) {
+        // Sending userdata to the backend using a proxy
+        dispatch(showLoading());
+        
+        const response = await axios.post("/api/v1/auth/register", {
+          fName,
+          lName,
+          email,
+          password
+        });
+  
+        dispatch(hideLoading());
+        
+        if (response.data.success) {
+          alert("Successfully Registered!");
+          navigate("/dashboard");
+        }
+      } 
+      else {
+        alert("Please fill in all the fields");
+      }
     } catch (error) {
+      dispatch(hideLoading());
+      alert("Invalid Form Details!");
       console.log(error);
     }
   };
+  
 
   return (
     <div className="form-container">
