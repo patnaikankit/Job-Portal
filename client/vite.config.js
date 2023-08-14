@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000/', // Replace with your backend server URL
+        target: 'http://localhost:3000/', 
         changeOrigin: true,
         ws: true,
       },
@@ -20,7 +20,7 @@ export default defineConfig({
         server.middlewares.use('/api', (req, res, next) => {
           axios
             .request({
-              baseURL: 'http://localhost:3000/', // Replace with your backend server URL
+              baseURL: 'http://localhost:3000/', 
               url: req.originalUrl,
               method: req.method,
               headers: req.headers,

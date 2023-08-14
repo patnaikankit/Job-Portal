@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Form from '../components/form.jsx';
+import Form from '../components/common/form.jsx';
 import { Link } from "react-router-dom";
 
 const Login = () => {

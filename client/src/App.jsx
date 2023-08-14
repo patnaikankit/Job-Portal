@@ -5,6 +5,7 @@ import Login from "./Pages/login.jsx"
 import Register from "./Pages/register.jsx"
 import Dashboard from "./Pages/dashboard.jsx"
 import { Route, Routes } from 'react-router-dom'
+// import { authRoute } from './components/routes/authRoute.js'
 
 function App() {
   return (
@@ -14,7 +15,12 @@ function App() {
         <Route path='/login' element={<Login />}/>
         <Route path='/register' element={<Register />}/>
         <Route path='/*' element={<NotFound />}/>
-        <Route path='/dashboard' element={<Dashboard />}/>
+        <Route path='/dashboard' 
+        element={
+        // <authRoute>
+          <Dashboard />
+        // </authRoute>
+        }/>
       </Routes> 
     </>
   )

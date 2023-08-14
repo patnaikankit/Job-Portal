@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Form from "../components/form.jsx";
+import Form from "../components/common/form.jsx";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../redux/features/alertSlice.js"
 import axios from "axios"

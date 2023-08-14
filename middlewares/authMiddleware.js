@@ -12,7 +12,7 @@ const userAuth = (req, res, next) => {
     try{
         // if the token is from a trusted user(logged in) he is allowed to pass 
         const payload = JWT.verify(token, process.env.SECRET_KEY);
-        req.user = {userId: payload.userId}
+        req.body.user = {userId: payload.userId}
         next()
     }
     catch(error){

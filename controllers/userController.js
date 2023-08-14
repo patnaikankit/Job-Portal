@@ -30,3 +30,32 @@ export const userController = async (req, res, next) => {
         token
     });
 };
+
+
+export const getUserController = async (req, res, next) => {
+    try{
+        const user = await userModel.findById({_id: req.body.user.userId})
+        // making the password undefined in initial state so that we can protect it during state transfer
+        user.password = undefined
+        if(!user){
+            return res.status(200).send({
+                message: "User not found!",
+                success: false
+            })
+        }
+        else{
+            res.status(200).send({
+                success: true,
+                data: user
+            })
+        }
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).send({
+            message: "Auth Error",
+            success: false,
+            error: error.message
+        })
+    }
+}
