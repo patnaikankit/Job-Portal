@@ -5,21 +5,37 @@ import Login from "./Pages/login.jsx"
 import Register from "./Pages/register.jsx"
 import Dashboard from "./Pages/dashboard.jsx"
 import { Route, Routes } from 'react-router-dom'
-// import { authRoute } from './components/routes/authRoute.js'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthRoute } from "./components/routes/authRoute.jsx"
+import PublicRoute from './components/routes/publicRoute.jsx'
 
 function App() {
   return (
     <>
+      <ToastContainer />
       <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='/login' element={<Login />}/>
-        <Route path='/register' element={<Register />}/>
+        <Route path='/' element={
+        <PublicRoute>
+        <Home />
+        </PublicRoute>
+        }/>
+        <Route path='/login' element={
+        <PublicRoute>
+        <Login />
+        </PublicRoute>
+        }/>
+        <Route path='/register' element={
+        <PublicRoute>
+        <Register />
+        </PublicRoute>
+        }/>
         <Route path='/*' element={<NotFound />}/>
         <Route path='/dashboard' 
         element={
-        // <authRoute>
+        <AuthRoute>
           <Dashboard />
-        // </authRoute>
+        </AuthRoute>
         }/>
       </Routes> 
     </>

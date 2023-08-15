@@ -1,6 +1,23 @@
 import React from "react";
+import "./layout.css"
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { userMenu } from "./menu/userMenu.jsx";
 
-export const Layout = () => {
+
+export const Layout = ({children}) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const sidebarMenu = userMenu;
+
+
+  const handleLogout = () => {
+    localStorage.clear();
+    toast.success("Logout Successfuly");
+    navigate("/login");
+  };
+  
+
     return (
         <>
           <div className="row">
